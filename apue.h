@@ -6,6 +6,7 @@
 #include<stdarg.h>
 #include<signal.h>
 #include<setjmp.h>
+#include<pthread.h>
 #define MAXLINE 4096
 static void err_doit(int errnoflag,int error,const char *fmt,va_list ap)
 {
