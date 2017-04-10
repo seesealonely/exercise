@@ -245,7 +245,7 @@ void err_quit(const char *fmt,...)
 
 static void err_doit(int errnoflag,int level,const char *fmt,va_list ap)
 {
-	int errno_save,n;
+	int errno_save=0,n=0;
 	char buf[MAXLINE+1];
 	#ifdef HAVE_VSNPRINTF
 vsnprintf(buf,MAXLINE,fmt,ap);
@@ -267,4 +267,21 @@ vsnprintf(buf,MAXLINE,fmt,ap);
 	fflush(stderr);
 	}
 	return ;
+}
+
+int Socket(int family,int type,int protocol)
+{
+	int n=0;
+	if((n==socket(family,type,protocol))<0)
+	err_sys("socket error\n");
+	return n;
+}
+
+void Pthread_mutex_lock(pthread_mutex_t *mptr)
+{
+	int n=0;
+	if((n=pthread_mutex_lock(mptr))==0)
+	return ;
+	errno=n;
+	err_sys("pthread_mutex_lock error\n");
 }
